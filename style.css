@@ -1,0 +1,38 @@
+body{
+    background:#f5f7fb;
+}
+
+.card{
+    border:none;
+    border-radius:15px;
+}
+
+h2{
+    font-weight:bold;
+    color:#0d6efd;
+}
+
+.btn-primary{
+    padding:12px;
+}
+.card{
+    border:none;
+    border-radius:20px;
+}
+
+.form-control{
+    border-radius:10px;
+    height:50px;
+}
+
+.btn{
+    border-radius:10px;
+    height:50px;
+    font-size:18px;
+}
+.card{
+    box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+.table tbody tr:hover{
+    background:#f1f5ff;
+}
