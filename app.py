@@ -578,6 +578,25 @@ def fraud_report():
 @app.route('/admin_dashboard')
 def admin_dashboard():
 
+    if 'user_id' not in session:
+        return redirect('/')
+
+    # Get logged in user
+    cursor.execute(
+        "SELECT * FROM users WHERE user_id=%s",
+        (session['user_id'],)
+    )
+
+    user = cursor.fetchone()
+
+    # Check if logged in user is admin
+    if user[-1] != "admin":
+        return "<h2>Access Denied! Admin Only.</h2>"
+
+    # -----------------------------
+    # Existing Admin Dashboard Code
+    # -----------------------------
+
     cursor.execute("SELECT COUNT(*) FROM users")
     total_users = cursor.fetchone()[0]
 
@@ -602,10 +621,7 @@ def admin_dashboard():
         total_amount = 0
 
     cursor.execute("""
-        SELECT fullname,
-               email,
-               account_number,
-               balance
+        SELECT fullname,email,account_number,balance
         FROM users
         ORDER BY user_id DESC
         LIMIT 5
@@ -614,12 +630,11 @@ def admin_dashboard():
     users = cursor.fetchall()
 
     cursor.execute("""
-        SELECT
-        sender_account,
-        receiver_account,
-        amount,
-        risk_score,
-        status
+        SELECT sender_account,
+               receiver_account,
+               amount,
+               risk_score,
+               status
         FROM transactions
         ORDER BY transaction_id DESC
         LIMIT 5
@@ -636,7 +651,6 @@ def admin_dashboard():
         users=users,
         transactions=transactions
     )
-
 
 @app.route('/risk_analysis')
 def risk_analysis():

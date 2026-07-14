@@ -79,10 +79,11 @@
                     Fraud Report
                 </a>
 
-                <a class="nav-link d-inline" href="/admin">
-                    Admin
-                </a>
-
+                {% if user[-1] == "admin" %}
+		<a class="nav-link d-inline" href="{{ url_for('admin_dashboard') }}">
+   		 Admin
+		</a>
+		{% endif %}
                 <a class="nav-link d-inline" href="/logout">
                     Logout
                 </a>
